@@ -1,25 +1,60 @@
+import random
+
+
+class LinkedListNode(object):
+
+    def __init__(self, data=None, next_node=None):
+        self.data = data
+        self.next_node = next_node
+
+    def get_data(self):
+        return self.data
+
+    def get_next(self):
+        return self.next_node
+
+    def set_next(self, new_next):
+        self.next_node = new_next
+
+
+class LinkedList():
+    def __init__(self, head=None):
+        self.head = head
+
+
 class SkipListNode():
+    """
+    Needed:
+    key
+    value
+    toplayer
+
+    """
 
     def __init__(self):
         pass
 
-    def __repr__(self):
+
+class SkipList():
+    def __init__(self):
         pass
 
-    def __le__(self, other):
+    def __next__(self):
         pass
 
-    def __lt__(self, other):
+    def search(self):
         pass
 
-    def __eq__(self, other):
+    def insert(self):
         pass
 
-    def __ge__(self, other):
+    def delete(self):
         pass
 
-    def __gt__(self, other):
-        pass
 
-    def __ne__(self, other):
-        pass
+def main():
+    pass
+
+
+if __name__ == "__main__":
+    main()
