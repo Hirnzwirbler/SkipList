@@ -1,4 +1,4 @@
-import random
+from random import randint
 
 
 class LinkedListNode(object):
@@ -17,7 +17,7 @@ class LinkedListNode(object):
         self.next_node = new_next
 
 
-class LinkedList():
+class LinkedList:
     def __init__(self, head=None):
         self.head = head
 
@@ -63,38 +63,86 @@ class LinkedList():
             previous.set_Next(current.get_next())
 
 
-class SkipListNode():
-    """
-    Needed:
-    key
-    value
-    toplayer
+class SkipListNode:
+    def __init__(self, height=0, elem=None):
+        self.elem = elem
+        self.next = [elem] * (height + 1)
 
-    """
 
+class SkipList:
     def __init__(self):
-        pass
+        self.head = SkipListNode()
+        self.len = 0
+        self.maxHeight = 0
 
+    def __len__(self):
+        return self.len
 
-class SkipList():
-    def __init__(self):
-        pass
+    def randomHeight(self):
+        """
+        Basically a simulated coin toss and depending on the outcome the height increments or is returned
+        :return: int : Height
+        """
+        height = 1
+        while randint(1, 2) != 1:
+            height += 1
+        return height
 
-    def __next__(self):
-        pass
+    def find(self, elem, update=None):
+        if update == None:
+            update = self.updateList(elem)
+        if len(update) > 0:
+            item = update[0].next[0]
+            if item != None and item.elem == elem:
+                return item
+        return None
 
-    def search(self):
-        pass
+    def updateList(self, elem):
+        update = [None] * self.maxHeight
+        x = self.head
+        for i in reversed(range(self.maxHeight)):
+            while x.next[i] != None and x.next[i].elem < elem:
+                x = x.next[i]
+            update[i] = x
+        return update
 
-    def insert(self):
-        pass
+    def contains(self, elem, update=None):
+        if self.find(elem, update) is None:
+            return False
+        else:
+            return True
 
-    def delete(self):
-        pass
+    def insert(self, elem):
+        node = SkipListNode(self.randomHeight(), elem)
+
+        self.maxHeight = max(self.maxHeight, len(node.next))
+        while len(self.head.next) < len(node.next):
+            self.head.next.append(None)
+
+        update = self.updateList(elem)
+        if self.find(elem, update) == None:
+            for i in range(len(node.next)):
+                node.next[i] = update[i].next[i]
+                update[i].next[i] = node
+            self.len += 1
+
+    def displayList(self):
+        current = self.head
+        while current:
+            print('Elem: ' + str(current.elem) + ' : Lvl = ' + str(current.next.__len__()))
+            current = current.next[0]
 
 
 def main():
-    pass
+    sk = SkipList()
+    sk.insert(1)
+    sk.insert(3)
+    sk.insert(6)
+    sk.insert(10)
+    sk.insert(5)
+    sk.insert(26)
+    sk.insert(13)
+    sk.displayList()
 
 
 if __name__ == "__main__":
