@@ -89,7 +89,7 @@ class SkipList:
         return height
 
     def find(self, elem, update=None):
-        if update == None:
+        if update is None:
             update = self.updateList(elem)
         if len(update) > 0:
             item = update[0].next[0]
@@ -101,7 +101,7 @@ class SkipList:
         update = [None] * self.maxHeight
         x = self.head
         for i in reversed(range(self.maxHeight)):
-            while x.next[i] != None and x.next[i].elem < elem:
+            while x.next[i] is not None and x.next[i].elem < elem:
                 x = x.next[i]
             update[i] = x
         return update
@@ -120,7 +120,7 @@ class SkipList:
             self.head.next.append(None)
 
         update = self.updateList(elem)
-        if self.find(elem, update) == None:
+        if self.find(elem, update) is None:
             for i in range(len(node.next)):
                 node.next[i] = update[i].next[i]
                 update[i].next[i] = node
