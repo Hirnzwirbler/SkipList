@@ -93,7 +93,7 @@ class SkipList:
             update = self.updateList(elem)
         if len(update) > 0:
             item = update[0].next[0]
-            if item != None and item.elem == elem:
+            if item is not None and item.elem == elem:
                 return item
         return None
 
