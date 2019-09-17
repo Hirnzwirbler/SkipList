@@ -165,6 +165,12 @@ class SkipList:
         Adds a new element at the right place, so the whole list stays ordered.
         Creates a node first with the given element and a random height.
 
+        Then updates the maxHeight if the new random height of the new node is higher.
+        Then via update list finds the path given the element
+        Then insertion is beginning if the element doesn't exist
+        The update then is used to update the next lists of the other nodes if needed.
+        After successful insertion the skip list length gets updated
+
         :param elem: The new element for the list
         """
         node = SkipListNode(self.random_height(), elem)
